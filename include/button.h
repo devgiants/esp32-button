@@ -7,7 +7,7 @@
 #include "driver/gpio.h"
 #include "esp_log.h"
 
-#define MODULE_LOG_TAG "DEVTIANTS_BUTTON"
+#define MODULE_LOG_TAG "DEVGIANTS_BUTTON"
 
 #define ESP_INTR_FLAG_DEFAULT 0
 #define DEFAULT_DEBOUNCING_DELAY_MS 100

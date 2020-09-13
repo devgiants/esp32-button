@@ -19,7 +19,7 @@ static void gpioDebouncingTask(void *arg) {
 
 			if(isDebounced(buttonPressed))
 			{
-				ESP_LOGI("DEVGIANTS BUTTON", "buttonInput : %d",
+				ESP_LOGD("DEVGIANTS BUTTON", "Button pressed GPIO number : %d",
 									buttonPressed->gpio);
 				buttonPressed->pressInputTriggerCallback(buttonPressed);
 			}
@@ -98,12 +98,19 @@ static void physicalButtonConfiguration(Button *button)
 static bool isDebounced(Button *button)
 {
 	uint32_t currentTimestamp = esp_log_timestamp();
+	bool isDebounced = false;
+
 	if(button->debounceTimestamp == 0) {
 		button->debounceTimestamp = currentTimestamp;
 	}
 
+	ESP_LOGD(MODULE_LOG_TAG, "Current time is %d. Previous timestamp was %d", currentTimestamp, button->debounceTimestamp);
+
 	if((currentTimestamp - button->debounceTimestamp) > button->debounceDelay) {
-		return true;
+		isDebounced = true;
 	}
-	return false;
+
+	button->debounceTimestamp = currentTimestamp;
+
+	return isDebounced;
 }
