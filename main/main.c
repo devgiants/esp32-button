@@ -12,12 +12,17 @@ void buttonInputCallback(void *userArg) {
 }
 
 void app_main(void) {
-	buttonManagerInit();
+    // Mandatory to initiates stuff needed for all buttons (queue...)
+    buttonManagerInit();
 
-	// Handle first button
-	button1 = calloc( 1, sizeof(Button) );
-	button1->gpio = 5;
-	button1->pressInputTriggerCallback = buttonInputCallback;
-	initiateButton(button1);
+    // Create button
+    button1 = calloc( 1, sizeof(Button) );
+
+    // Mandatory
+    button1->gpio = 5;
+    button1->pressInputTriggerCallback = buttonInputCallback;
+
+    // Effective button creation
+    initiateButton(button1);
 }
 
